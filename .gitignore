@@ -1,0 +1,15 @@
+# Ignore build artifacts
+build/
+dist/
+*.egg-info/
+
+# Ignore compiled Python files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ignore environment files
+.env
+*.env
+.vscode/
+.idea/
