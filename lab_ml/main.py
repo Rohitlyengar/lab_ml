@@ -26,7 +26,7 @@ def program2(data=None, classifier=None, x_train=None, y_train=None, x_test=None
 
 def program3(data=None, classifier=None, x_train=None, y_train=None, x_test=None, y_test=None, x_pred=None, y_pred=None, wcss_list=None):
     x_set, y_set = x_train, y_train
-    cmap = ListedColormap(('red', 'green'))
+    cmap = ListedColormap(['red', 'green'])
 
     x1, x2 = np.meshgrid(
         np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
@@ -41,9 +41,9 @@ def program3(data=None, classifier=None, x_train=None, y_train=None, x_test=None
     for i, j in enumerate(np.unique(y_set)):
         plt.scatter(
             x_set[y_set == j, 0], x_set[y_set == j, 1],
-            c=[cmap(i)], label=j  # Use the colormap correctly
+            c=[cmap(i)], label=j
         )
-    plt.title('K-NN Algorithm (Training set)')
+    plt.title('KNN Alogrithm (Training set)')
     plt.xlabel('Age')
     plt.ylabel('Estimated Salary')
     plt.legend()
@@ -63,9 +63,9 @@ def program3(data=None, classifier=None, x_train=None, y_train=None, x_test=None
     for i, j in enumerate(np.unique(y_set)):
         plt.scatter(
             x_set[y_set == j, 0], x_set[y_set == j, 1],
-            c=[cmap(i)], label=j  # Use the colormap correctly
+            c=[cmap(i)], label=j
         )
-    plt.title('K-NN Algorithm (Test set)')
+    plt.title('KNN Algorithm (Test set)')
     plt.xlabel('Age')
     plt.ylabel('Estimated Salary')
     plt.legend()
@@ -96,7 +96,6 @@ def program4(data=None, classifier=None, x_train=None, y_train=None, x_test=None
     plt.legend()
     plt.show()
 
-    # Test set visualization
     x_set, y_set = x_test, y_test
     x1, x2 = np.meshgrid(
         np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
