@@ -26,22 +26,71 @@ def program2(data=None, classifier=None, x_train=None, y_train=None, x_test=None
 
 def program3(data=None, classifier=None, x_train=None, y_train=None, x_test=None, y_test=None, x_pred=None, y_pred=None, wcss_list=None):
     x_set, y_set = x_train, y_train
+    cmap = ListedColormap(('red', 'green'))
+
     x1, x2 = np.meshgrid(
         np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
         np.arange(start=x_set[:, 1].min() - 1, stop=x_set[:, 1].max() + 1, step=0.01)
     )
     plt.contourf(
         x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
-        alpha=0.75, cmap=ListedColormap(('red', 'green'))
+        alpha=0.75, cmap=cmap
     )
     plt.xlim(x1.min(), x1.max())
     plt.ylim(x2.min(), x2.max())
     for i, j in enumerate(np.unique(y_set)):
         plt.scatter(
             x_set[y_set == j, 0], x_set[y_set == j, 1],
-            c=ListedColormap(('red', 'green'))(i), label=j
+            c=[cmap(i)], label=j  # Use the colormap correctly
         )
     plt.title('K-NN Algorithm (Training set)')
+    plt.xlabel('Age')
+    plt.ylabel('Estimated Salary')
+    plt.legend()
+    plt.show()
+
+    x_set, y_set = x_test, y_test
+    x1, x2 = np.meshgrid(
+        np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
+        np.arange(start=x_set[:, 1].min() - 1, stop=x_set[:, 1].max() + 1, step=0.01)
+    )
+    plt.contourf(
+        x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
+        alpha=0.75, cmap=cmap
+    )
+    plt.xlim(x1.min(), x1.max())
+    plt.ylim(x2.min(), x2.max())
+    for i, j in enumerate(np.unique(y_set)):
+        plt.scatter(
+            x_set[y_set == j, 0], x_set[y_set == j, 1],
+            c=[cmap(i)], label=j  # Use the colormap correctly
+        )
+    plt.title('K-NN Algorithm (Test set)')
+    plt.xlabel('Age')
+    plt.ylabel('Estimated Salary')
+    plt.legend()
+    plt.show()
+
+def program4(data=None, classifier=None, x_train=None, y_train=None, x_test=None, y_test=None, x_pred=None, y_pred=None, wcss_list=None):
+    cmap = ListedColormap(['red', 'green'])
+
+    x_set, y_set = x_train, y_train
+    x1, x2 = np.meshgrid(
+        np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
+        np.arange(start=x_set[:, 1].min() - 1, stop=x_set[:, 1].max() + 1, step=0.01)
+    )
+    plt.contourf(
+        x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
+        alpha=0.75, cmap=cmap
+    )
+    plt.xlim(x1.min(), x1.max())
+    plt.ylim(x2.min(), x2.max())
+    for i, j in enumerate(np.unique(y_set)):
+        plt.scatter(
+            x_set[y_set == j, 0], x_set[y_set == j, 1],
+            c=[cmap(i)], label=j
+        )
+    plt.title('SVM classifier (Training set)')
     plt.xlabel('Age')
     plt.ylabel('Estimated Salary')
     plt.legend()
@@ -55,46 +104,15 @@ def program3(data=None, classifier=None, x_train=None, y_train=None, x_test=None
     )
     plt.contourf(
         x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
-        alpha=0.75, cmap=ListedColormap(('red', 'green'))
+        alpha=0.75, cmap=cmap
     )
     plt.xlim(x1.min(), x1.max())
     plt.ylim(x2.min(), x2.max())
     for i, j in enumerate(np.unique(y_set)):
         plt.scatter(
             x_set[y_set == j, 0], x_set[y_set == j, 1],
-            c=ListedColormap(('red', 'green'))(i), label=j
+            c=[cmap(i)], label=j
         )
-    plt.title('K-NN Algorithm (Test set)')
-    plt.xlabel('Age')
-    plt.ylabel('Estimated Salary')
-    plt.legend()
-    plt.show()
-
-def program4(data=None, classifier=None, x_train=None, y_train=None, x_test=None, y_test=None, x_pred=None, y_pred=None, wcss_list=None):
-    x_set, y_set = x_train, y_train
-    x1, x2 = np.meshgrid(np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
-                         np.arange(start=x_set[:, 1].min() - 1, stop=x_set[:, 1].max() + 1, step=0.01))
-    plt.contourf(x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
-                 alpha=0.75, cmap=ListedColormap(('red', 'green')))
-    plt.xlim(x1.min(), x1.max())
-    plt.ylim(x2.min(), x2.max())
-    for i, j in enumerate(np.unique(y_set)):
-        plt.scatter(x_set[y_set == j, 0], x_set[y_set == j, 1], c=ListedColormap(('red', 'green'))(i), label=j)
-    plt.title('SVM classifier (Training set)')
-    plt.xlabel('Age')
-    plt.ylabel('Estimated Salary')
-    plt.legend()
-    plt.show()
-
-    x_set, y_set = x_test, y_test
-    x1, x2 = np.meshgrid(np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
-                         np.arange(start=x_set[:, 1].min() - 1, stop=x_set[:, 1].max() + 1, step=0.01))
-    plt.contourf(x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
-                 alpha=0.75, cmap=ListedColormap(('red', 'green')))
-    plt.xlim(x1.min(), x1.max())
-    plt.ylim(x2.min(), x2.max())
-    for i, j in enumerate(np.unique(y_set)): plt.scatter(x_set[y_set == j, 0], x_set[y_set == j, 1],
-                                                         c=ListedColormap(('red', 'green'))(i), label=j)
     plt.title('SVM classifier (Test set)')
     plt.xlabel('Age')
     plt.ylabel('Estimated Salary')
@@ -117,32 +135,49 @@ def program5(data=None, classifier=None, x_train=None, y_train=None, x_test=None
     plt.show()
 
 def program6(data=None, classifier=None, x_train=None, y_train=None, x_test=None, y_test=None, x_pred=None, y_pred=None, wcss_list=None):
+    cmap = ListedColormap(['purple', 'green'])
+
+    # Training set visualization
     x_set, y_set = x_train, y_train
-    x1, x2 = np.meshgrid(np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
-                         np.arange(start=x_set[:, 1].min() - 1, stop=x_set[:, 1].max() + 1, step=0.01))
-    plt.contourf(x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
-                 alpha=0.75, cmap=ListedColormap(('purple', 'green')))
+    x1, x2 = np.meshgrid(
+        np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
+        np.arange(start=x_set[:, 1].min() - 1, stop=x_set[:, 1].max() + 1, step=0.01)
+    )
+    plt.contourf(
+        x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
+        alpha=0.75, cmap=cmap
+    )
     plt.xlim(x1.min(), x1.max())
     plt.ylim(x2.min(), x2.max())
-    for i, j in enumerate(np.unique(y_set)): plt.scatter(x_set[y_set == j, 0], x_set[y_set == j, 1],
-                                                         c=ListedColormap(('purple', 'green'))(i), label=j)
+    for i, j in enumerate(np.unique(y_set)):
+        plt.scatter(
+            x_set[y_set == j, 0], x_set[y_set == j, 1],
+            c=[cmap(i)], label=j  # Correct color mapping using cmap
+        )
     plt.title('Random Forest Algorithm (Training set)')
     plt.xlabel('Age')
     plt.ylabel('Estimated Salary')
     plt.legend()
     plt.show()
 
+    # Test set visualization
     x_set, y_set = x_test, y_test
-    x1, x2 = np.meshgrid(np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
-                         np.arange(start=x_set[:, 1].min() - 1, stop=x_set[:, 1].max() + 1, step=0.01))
-    plt.contourf(x1, x2, classifier.predict(np.array([x1.ravel(),
-                                                      x2.ravel()]).T).reshape(x1.shape), alpha=0.75,
-                 cmap=ListedColormap(('purple', 'green')))
+    x1, x2 = np.meshgrid(
+        np.arange(start=x_set[:, 0].min() - 1, stop=x_set[:, 0].max() + 1, step=0.01),
+        np.arange(start=x_set[:, 1].min() - 1, stop=x_set[:, 1].max() + 1, step=0.01)
+    )
+    plt.contourf(
+        x1, x2, classifier.predict(np.array([x1.ravel(), x2.ravel()]).T).reshape(x1.shape),
+        alpha=0.75, cmap=cmap
+    )
     plt.xlim(x1.min(), x1.max())
     plt.ylim(x2.min(), x2.max())
-    for i, j in enumerate(np.unique(y_set)): plt.scatter(x_set[y_set == j, 0], x_set[y_set == j, 1],
-                                                         c=ListedColormap(('purple', 'green'))(i), label=j)
-    plt.title('Random Forest Algorithm(Test set)')
+    for i, j in enumerate(np.unique(y_set)):
+        plt.scatter(
+            x_set[y_set == j, 0], x_set[y_set == j, 1],
+            c=[cmap(i)], label=j  # Correct color mapping using cmap
+        )
+    plt.title('Random Forest Algorithm (Test set)')
     plt.xlabel('Age')
     plt.ylabel('Estimated Salary')
     plt.legend()
@@ -154,7 +189,7 @@ def program7(data=None, classifier=None, x_train=None, y_train=None, x_test=None
     plt.xlabel('Number of clusters(k)')
     plt.ylabel('wcss_list')
     plt.show()
-
+    print()
     plt.scatter(data[y_pred == 0, 0], data[y_pred == 0, 1], s=100, c='blue', label='Cluster 1')  # for first cluster
     plt.scatter(data[y_pred == 1, 0], data[y_pred == 1, 1], s=100, c='green', label='Cluster 2')  # for second cluster
     plt.scatter(data[y_pred == 2, 0], data[y_pred == 2, 1], s=100, c='red', label='Cluster 3')  # for third cluster
