@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='lab_ml',
-    version='0.1.0',
+    name='lab-ml5sem',
+    version='1.0.0',
     description='A package for data visualization and machine learning helper functions.',
     long_description=open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',

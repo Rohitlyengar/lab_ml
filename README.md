@@ -5,11 +5,11 @@ A Python package for visualizing machine learning algorithms and their outputs.
 ## Installation
 
 ```
-pip install lab_ml
+pip install lab-ml5sem
 ```
 
 ## Usage
 
 ```python
-from lab_ml import program1
+import lab_ml
 ```
